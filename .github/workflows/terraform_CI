@@ -1,0 +1,48 @@
+name: "terraform_CI"
+
+on:
+  pull_request:
+    branches:
+      - main
+      - sourceini
+      - test
+    paths:
+      - "*.tf"
+      - "*.tftest.hcl"
+      - ".github/workflows/*.yml"
+      - "modules/**/*.tf"
+      - "ansible/**"
+  push:
+    branches:
+      - main
+      - sourceini
+      - test
+    paths:
+      - "*.tf"
+      - "*.tftest.hcl"
+      - ".github/workflows/*.yml"
+      - "modules/**/*.tf"
+      - "ansible/**"
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  AWS_REGION: ap-northeast-1
+  TF_VERSION: 1.13.5
+  TF_PROJECT: aws-study
+  TF_ENVIRONMENT: dryrun
+
+defaults:
+  run:
+    shell: bash
+    #working-directory: "10_infra/"
+
+jobs:
+  terraform_CI:
+    name: Terraform_CI
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Hello World"
