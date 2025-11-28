@@ -15,7 +15,7 @@ terraform {
     bucket  = "awsstudy-tfstate-bucket-shingaku"
     key     = "awsstudy-shingaku.tfstate"
     region  = "ap-northeast-1"
-    profile = "terraform"
+    #profile = "terraform"
     #dynamodb_table = "terraform-lock"
     encrypt = true
   }
