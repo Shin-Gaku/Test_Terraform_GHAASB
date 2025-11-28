@@ -4,8 +4,8 @@ on:
   push:
     branches:
       - main
-      - sourceini
-      - test
+      #- sourceini
+      #- test
     paths:
       - "*.tf"
       - "*.tftest.hcl"
