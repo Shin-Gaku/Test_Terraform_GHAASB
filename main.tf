@@ -12,9 +12,9 @@ terraform {
   }
 
   backend "s3" {
-    bucket  = "awsstudy-tfstate-bucket-shingaku"
-    key     = "awsstudy-shingaku.tfstate"
-    region  = "ap-northeast-1"
+    bucket = "awsstudy-tfstate-bucket-shingaku"
+    key    = "awsstudy-shingaku.tfstate"
+    region = "ap-northeast-1"
     #profile = "terraform"
     #dynamodb_table = "terraform-lock"
     encrypt = true
