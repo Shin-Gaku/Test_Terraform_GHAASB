@@ -1,20 +1,9 @@
-name: "terraform_CI"
+name: "terraform_CD"
 
 on:
-  pull_request:
-    branches:
-      - main
-      - sourceini
-      - test
-    paths:
-      - "*.tf"
-      - "*.tftest.hcl"
-      - ".github/workflows/*.yml"
-      - "modules/**/*.tf"
-      - "ansible/**"
   push:
     branches:
-      #- main
+      - main
       - sourceini
       - test
     paths:
@@ -35,11 +24,10 @@ env:
 defaults:
   run:
     shell: bash
-    #working-directory: "10_infra/"
 
 jobs:
-  terraform_CI:
-    name: Terraform_CI
+  terraform_CD:
+    name: Terraform_CD
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -62,11 +50,10 @@ jobs:
       - name: Terraform validate
         run: |
           terraform validate -no-color
-      - name: Terraform plan
-        continue-on-error: true
-        id: plan
+      - name: Terraform apply
+        id: apply
         run: |
-          terraform plan \
+          terraform apply \
             -input=false \
             -no-color \
-            -detailed-exitcode
+            -auto-approve
