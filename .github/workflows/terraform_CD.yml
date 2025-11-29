@@ -30,7 +30,7 @@ jobs:
     name: Terraform_CD
     runs-on: ubuntu-latest
     #applyジョブは承認必須 20251129_1
-    environment: production
+    #environment: production
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
