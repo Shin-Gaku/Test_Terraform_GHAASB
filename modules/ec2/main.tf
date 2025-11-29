@@ -42,7 +42,7 @@ resource "aws_security_group" "ec2_sg" {
     from_port       = 8080
     to_port         = 8080
     protocol        = "tcp"
-    #security_groups = [var.alb_sg_id]
+    security_groups = [var.alb_sg_id]
     #cidr_blocks = ["0.0.0.0/0"]
   }
 

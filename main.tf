@@ -76,8 +76,8 @@ module "ec2Instance" {
   ssh_fixed_ip  = var.ssh_fixed_ip
   subnet_id     = module.aws-study-vpc.public_subnets_ids[0]
   vpc_id        = module.aws-study-vpc.vpc_id
-  #alb_sg_id     = module.alb.alb_sg_id
-  modules_name = "aws-study"
+  alb_sg_id     = module.alb.alb_sg_id
+  modules_name  = "aws-study"
 }
 
 # ---------------------------------------------
