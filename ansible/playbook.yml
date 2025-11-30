@@ -41,12 +41,13 @@
         state: present
         update_cache: yes
 
-# -------------------------------------------------------
-# Git Clone
-# -------------------------------------------------------
+  # -------------------------------------------------------
+  # Git Clone https://github.com/koujienami/aws-study.git
+  # -------------------------------------------------------
     - name: git clone
       become: true
       become_user: ec2-user
+      sudo: no
       ansible.builtin.git:
         repo: https://github.com/koujienami/aws-study.git
-        #dest: /home/ec2-user/aws-study
+        dest: /home/ec2-user/aws-study
