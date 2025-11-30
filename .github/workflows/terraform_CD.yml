@@ -110,12 +110,12 @@ jobs:
           echo "${{ env.EC2_IP }}" >> inventory.ini
 
       # SSH known_hosts 登録
-      - name: Register EC2 to known_hosts
-        run: ssh-keyscan -H ${{ env.EC2_IP }} >> ~/.ssh/known_hosts
+      #- name: Register EC2 to known_hosts
+        #run: ssh-keyscan -H ${{ env.EC2_IP }} >> ~/.ssh/known_hosts
 
       # EC2起動待ち
-      - name: Wait for EC2 to be ready
-        run: sleep 30
+      #- name: Wait for EC2 to be ready
+        #run: sleep 30
 
       # SSH接続確認
       - name: Ensure SSH connection
