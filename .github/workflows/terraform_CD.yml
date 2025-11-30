@@ -99,8 +99,8 @@ jobs:
       - name: Setup SSH key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY_EC2 }}" > ~/.ssh
-          chmod 700 ~/.ssh
+          echo "${{ secrets.SSH_KEY_EC2 }}" > ~/.ssh/aws-study_20251010.pem
+          chmod 700 ~/.ssh/aws-study_20251010.pem
 
       # 動的インベントリ作成（最新IP使用）
       - name: Create Inventory File
