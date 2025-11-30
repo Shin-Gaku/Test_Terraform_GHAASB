@@ -28,9 +28,9 @@
     # Install Java 21 (Amazon Corretto)
     # ---------------------------------------------------
     - name: Ensure Java 21 is installed
-      dnf:
-        name: java-21-amazon-corretto
-        state: present
+      package:
+        name: java-21-amazon-corretto-devel.x86_64
+        state: present 
 
   # -----------------------------------------------------
   # Install Git
