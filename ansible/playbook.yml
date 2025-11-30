@@ -44,7 +44,7 @@
 # -------------------------------------------------------
 # Git Clone
 # -------------------------------------------------------
-    - name: Git Clone
+    - name: git clone
       become: true
       become_user: ec2-user
       ansible.builtin.git:
