@@ -49,4 +49,4 @@
       become_user: ec2-user
       ansible.builtin.git:
         repo: https://github.com/koujienami/aws-study.git
-        dest: /home/ec2-user/aws-study
+        dest: "/home/ec2-user/aws-study"
