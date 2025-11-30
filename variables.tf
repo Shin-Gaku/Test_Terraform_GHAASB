@@ -29,7 +29,8 @@ variable "key_name" {
 variable "ssh_fixed_ip" {
   description = "管理者SSHアクセス用固定IPアドレス"
   type        = string
-  default     = "134.180.136.121/32"
+  #default     = "134.180.136.121/32"
+  default     = "0.0.0.0/0"
 }
 
 # RDS管理者ログイン名
