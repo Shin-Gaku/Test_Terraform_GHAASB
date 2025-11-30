@@ -119,7 +119,7 @@ jobs:
 
       # SSH接続確認
       - name: Ensure SSH connection
-        run: ssh -i ~/.ssh/id_rsa ec2-user@${{ env.EC2_IP }} "echo 'SSH connection is OK to Dry Run)!'"
+        run: ssh -i ~/.ssh/aws-study_20251010.pem ec2-user@${{ env.EC2_IP }} "echo 'SSH connection is OK to Dry Run)!'"
 
       # Ansible Dry Run (--check)
       - name: Dry Run Ansible (with check)
