@@ -44,12 +44,9 @@
 # -------------------------------------------------------
 # Git Clone
 # -------------------------------------------------------
-    #- name: git clone
-      #become: true
-      #become_user: ec2-user
-      #ansible.builtin.git:
-        #repo: https://github.com/koujienami/aws-study.git
+    - name: git clone
+      become: true
+      become_user: ec2-user
+      ansible.builtin.git:
+        repo: https://github.com/koujienami/aws-study.git
         #dest: /home/ec2-user/aws-study
-    
-    - name: Clone Spring Boot App
-      run: git clone https://github.com/koujienami/aws-study.git app
