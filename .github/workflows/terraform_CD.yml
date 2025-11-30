@@ -87,8 +87,8 @@ jobs:
           echo "EC2_IP=$(terraform output -raw ec2_public_ip)" >> $GITHUB_ENV
       
       # 取得したEC2のIP表示
-      - name: Echo EC2 IP
-        run: echo "EC2 IP is ${{ env.EC2_IP }}"
+      #- name: Echo EC2 IP
+        #run: echo "EC2 IP is ${{ env.EC2_IP }}"
       
       # runnerのIP取得
       - name: Get runner public IP
