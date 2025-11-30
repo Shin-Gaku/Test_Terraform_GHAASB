@@ -1,0 +1,50 @@
+---
+- name: Install Java and Mysql to Amazon Linux 2023
+  hosts: ec2
+  become: true
+
+  tasks:
+    # ---------------------------------------------------
+    # OSアップデート
+    # ---------------------------------------------------
+    - name: Update all packages and refresh repositories
+      command: dnf update -y
+
+    # -------------------------------------------------------------------------------------
+    # Install MySQL Community
+    # -------------------------------------------------------------------------------------
+    - name: Install MySQL Community
+      command: >
+        dnf -y install https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
+
+    # ---------------------------------------------------
+    # Install MySQL クライアント
+    # ---------------------------------------------------
+    - name: Install MySQL client
+      command: >
+        dnf -y install mysql-community-client
+
+    # ---------------------------------------------------
+    # Install Java 21 (Amazon Corretto)
+    # ---------------------------------------------------
+    - name: Ensure Java 21 is installed
+      dnf:
+        name: java-21-amazon-corretto
+        state: present
+
+  # -----------------------------------------------------
+  # Install Git
+  # -----------------------------------------------------
+    - name: Ensure Git is installed
+      package:
+        name: git
+        state: present
+        update_cache: yes
+
+# -------------------------------------------------------
+# Git Clone
+# -------------------------------------------------------
+    - name: Git Clone
+      ansible.builtin.git:
+        repo: https://github.com/koujienami/aws-study.git
+        dest: /home/ec2-user

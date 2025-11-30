@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - sourceini
-      #- test
+      - test
     paths:
       - "*.tf"
       - "*.tftest.hcl"
@@ -59,3 +59,74 @@ jobs:
             -input=false \
             -no-color \
             -auto-approve
+  
+  ansible:
+    needs: [terraform_CD]
+    runs-on: ubuntu-latest
+    steps:
+      # GitHubリポジトリをチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      
+      # AWS認証（S3バックエンドにアクセスするため）
+      - name: Configure AWS Credential
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_IAM_ROLE_ARN }}
+
+      # Terraformセットアップ
+      - name: Setup terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # Terraformの出力からEC2のIPを取得
+      - name: Get EC2 public IP from Terraform output
+        id: get_ip
+        run: |
+          terraform init -reconfigure
+          echo "EC2_IP=$(terraform output -raw ec2_public_ip)" >> $GITHUB_ENV
+
+      - name: Echo EC2 IP
+        run: echo "EC2 IP is ${{ env.EC2_IP }}"
+
+      # Ansibleインストール
+      - name: Install Ansible
+        run: |
+          sudo apt update -y
+          sudo apt install -y ansible
+
+      # SSH秘密鍵設定
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY_EC2 }}" > ~/.ssh
+          chmod 700 ~/.ssh
+
+      # 動的インベントリ作成（最新IP使用）
+      - name: Create Inventory File
+        working-directory: ./ansible
+        run: |
+          echo "[ec2]" > inventory.ini
+          echo "${{ env.EC2_IP }}" >> inventory.ini
+
+      # SSH known_hosts 登録
+      - name: Register EC2 to known_hosts
+        run: ssh-keyscan -H ${{ env.EC2_IP }} >> ~/.ssh/known_hosts
+
+      # EC2起動待ち
+      - name: Wait for EC2 to be ready
+        run: sleep 30
+
+      # SSH接続確認
+      - name: Ensure SSH connection
+        run: ssh -i ~/.ssh/id_rsa ec2-user@${{ env.EC2_IP }} "echo 'SSH connection is OK to Dry Run)!'"
+
+      # Ansible Dry Run (--check)
+      - name: Dry Run Ansible (with check)
+        working-directory: ./ansible
+        run: ansible-playbook -i inventory.ini playbook.yaml --check -u ec2-user
+      
+      # Ansible Playbook 実行
+      - name: Run Ansible Playbook
+        working-directory: ./ansible
+        run: ansible-playbook -i inventory.ini playbook.yaml -u ec2-user
