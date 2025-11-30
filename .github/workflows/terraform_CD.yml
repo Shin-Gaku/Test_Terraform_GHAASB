@@ -132,20 +132,28 @@ jobs:
         #run: ssh -i ~/.ssh/aws-study_20251010.pem ec2-user@${{ env.EC2_IP }} "echo 'SSH connection is OK to Dry Run)!'"
 
       # Ansible Dry Run (--check)
-      - name: Dry Run Ansible (with check)
-        working-directory: ./ansible
-        #run: ansible-playbook -i inventory.ini playbook.yml --check -u ec2-user
-        run: |
+      #- name: Dry Run Ansible (with check)
+        #working-directory: ./ansible
+        ##run: ansible-playbook -i inventory.ini playbook.yml --check -u ec2-user
+        #run: |
           #ec2_1_ip=$(cat ec2_1_ip.txt)
-          ansible-playbook \
-            -i inventory.ini \
-            playbook.yml --check \
-            -u ec2-user \
-            --private-key ~/.ssh/aws-study_20251010.pem \
-            --ssh-extra-args='-o StrictHostKeyChecking=no'
+          #ansible-playbook \
+            #-i inventory.ini \
+            #playbook.yml --check \
+            #-u ec2-user \
+            #--private-key ~/.ssh/aws-study_20251010.pem \
+            #--ssh-extra-args='-o StrictHostKeyChecking=no'
 
       
       # Ansible Playbook 実行
       - name: Run Ansible Playbook
         working-directory: ./ansible
-        run: ansible-playbook -i inventory.ini playbook.yml -u ec2-user
+        #run: ansible-playbook -i inventory.ini playbook.yml -u ec2-user
+        run: |
+          #ec2_1_ip=$(cat ec2_1_ip.txt)
+          ansible-playbook \
+            -i inventory.ini \
+            playbook.yml \
+            -u ec2-user \
+            --private-key ~/.ssh/aws-study_20251010.pem \
+            --ssh-extra-args='-o StrictHostKeyChecking=no'
