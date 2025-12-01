@@ -104,6 +104,12 @@ jobs:
         #run: |
           #terraform destroy -auto-approve
       
+      # Error: Backend initialization required, please run "terraform init"
+      # Terraform Initは必要
+      - name: Terraform init
+        run: |
+          terraform init -no-color
+      
       # GHA runnerをSSH SecurityGroupに追加
       - name: Ensure GHA runner to connect EC2 with SSH
         run: |
