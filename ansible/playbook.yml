@@ -25,7 +25,7 @@
       #command: >
         #dnf -y install https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
       ansible.builtin.dnf:
-        name: https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
+        name: 'https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm'
         state: present
       #become: yes
 
