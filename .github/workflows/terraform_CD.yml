@@ -52,13 +52,13 @@ jobs:
       - name: Terraform validate
         run: |
           terraform validate -no-color
-      - name: Terraform apply
-        id: apply
-        run: |
-          terraform apply \
-            -input=false \
-            -no-color \
-            -auto-approve
+      #- name: Terraform apply 20251201
+        #id: apply
+        #run: |
+          #terraform apply \
+            #-input=false \
+            #-no-color \
+            #-auto-approve
   
   ansible:
     needs: [terraform_CD]
@@ -100,9 +100,9 @@ jobs:
         run: echo "runner IP is ${{ env.RUNNER_IP }}"
 
       # AWSリソースの再構築のため一旦全部削除する必要がある
-      - name: Terraform Destroy in order to add GHA runner to SSH SG
-        run: |
-          terraform destroy -auto-approve
+      #- name: Terraform Destroy in order to add GHA runner to SSH SG
+        #run: |
+          #terraform destroy -auto-approve
       
       # GHA runnerをSSH SecurityGroupに追加
       - name: Ensure GHA runner to connect EC2 with SSH
