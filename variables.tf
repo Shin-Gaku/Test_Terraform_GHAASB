@@ -29,8 +29,7 @@ variable "key_name" {
 variable "ssh_fixed_ip" {
   description = "管理者SSHアクセス用固定IPアドレス"
   type        = string
-  #default     = "134.180.136.121/32"
-  default = "0.0.0.0/0"
+  default     = "134.180.136.121/32"
 }
 
 # RDS管理者ログイン名
@@ -46,4 +45,11 @@ variable "notification_email" {
   type        = string
   default     = "yakushin-co.ltd@gol.com"
   sensitive   = true
+}
+
+# Github Actions runner SSHアクセスIPアドレス 20251201
+variable "ssh_GHArunner_ip" {
+  description = "github actions runner IPアドレス"
+  type        = string
+  default     = "192.168.2.50/32"
 }

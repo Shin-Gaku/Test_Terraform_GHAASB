@@ -99,6 +99,13 @@ jobs:
       - name: Echo runner IP
         run: echo "runner IP is ${{ env.RUNNER_IP }}"
 
+      # GHA runnerをSSH SecurityGroupに追加
+      - name: Ensure GHA runner to connect EC2 with SSH
+        run: |
+          cd ../
+          terraform apply -auto-approve \
+            -var "ssh_GHArunner_ip=${{ env.RUNNER_IP }}/32"
+      
       # Ansibleインストール
       - name: Install Ansible
         run: |
