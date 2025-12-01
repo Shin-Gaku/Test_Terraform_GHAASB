@@ -35,10 +35,10 @@ variable "ssh_fixed_ip" {
 }
 
 # EC2が所属するALBのセキュリティグループID
-variable "alb_sg_id" {
-  description = "Security Group ID of the ALB which can access to EC2"
-  type        = string
-}
+#variable "alb_sg_id" {
+  #description = "Security Group ID of the ALB which can access to EC2"
+  #type        = string
+#}
 
 # Github Actions runner SSHアクセスIPアドレス 20251201
 variable "ssh_GHArunner_ip" {

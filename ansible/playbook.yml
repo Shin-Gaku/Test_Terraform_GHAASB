@@ -2,27 +2,48 @@
 - name: Install Java and Mysql to Amazon Linux 2023
   hosts: ec2
   become: true
+  vars:
+    ansible_user_dir: /home/ec2-user
 
   tasks:
     # ---------------------------------------------------
     # OSアップデート
     # ---------------------------------------------------
-    - name: Update all packages and refresh repositories
-      command: dnf update -y
+    #- name: Update all packages and refresh repositories
+      #command: dnf update -y
+    - name: Perform a full system update
+      ansible.builtin.dnf:
+        name: "*" # Specifies all packages
+        state: latest # Ensures packages are updated to the latest version
+        nobest: false # Optional: If set to true, dnf will not try to find the best possible update, potentially leading to partial updates.
+        update_cache: true # Optional: Update the dnf cache before performing the update.
 
     # -------------------------------------------------------------------------------------
     # Install MySQL Community
     # -------------------------------------------------------------------------------------
     - name: Install MySQL Community
-      command: >
-        dnf -y install https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
+      #command: >
+        #dnf -y install https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
+      ansible.builtin.dnf:
+        name: https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
+        state: present
+      #become: yes
+
+    #- name: パッケージの URL を指定してインストールする
+      #ansible.builtin.dnf:
+        #name: https://yum.oracle.com/repo/OracleLinux/OL8/appstream/x86_64/getPackage/httpd-2.4.37-30.0.1.module+el8.3.0+7816+49791cfd.x86_64.rpm
+        #state: present
+      #become: yes
 
     # ---------------------------------------------------
     # Install MySQL クライアント
     # ---------------------------------------------------
     - name: Install MySQL client
-      command: >
-        dnf -y install mysql-community-client
+      #command: >
+        #dnf -y install mysql-community-client
+      ansible.builtin.dnf:
+        name: mysql-community-client
+        state: present
 
     # ---------------------------------------------------
     # Install Java 21 (Amazon Corretto)
@@ -49,4 +70,4 @@
       become_user: ec2-user
       ansible.builtin.git:
         repo: https://github.com/koujienami/aws-study.git
-        dest: $HOME/aws-study
+        dest: '{{ ansible_user_dir }}/aws-study'

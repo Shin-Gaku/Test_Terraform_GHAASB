@@ -63,6 +63,8 @@ jobs:
   ansible:
     needs: [terraform_CD]
     runs-on: ubuntu-latest
+    #applyジョブは承認必須 20251201
+    #environment: production
     steps:
       # GitHubリポジトリをチェックアウト
       - name: Checkout repository
@@ -139,7 +141,8 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_KEY_EC2 }}" > ~/.ssh/aws-study_20251010.pem
-          chmod 700 ~/.ssh/aws-study_20251010.pem
+          #chmod 700 ~/.ssh/aws-study_20251010.pem
+          chmod 600 ~/.ssh/aws-study_20251010.pem
 
       # 動的インベントリ作成（最新IP使用）
       - name: Create Inventory File
