@@ -22,16 +22,10 @@
     # Install MySQL Community
     # -------------------------------------------------------------------------------------
     - name: Install MySQL Community
-      #command: >
-        #dnf -y install https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
-      ansible.builtin.dnf:
-        name: 'https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm'
-        state: present
-      #become: yes
-
-    #- name: パッケージの URL を指定してインストールする
+      command: >
+        dnf -y install https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
       #ansible.builtin.dnf:
-        #name: https://yum.oracle.com/repo/OracleLinux/OL8/appstream/x86_64/getPackage/httpd-2.4.37-30.0.1.module+el8.3.0+7816+49791cfd.x86_64.rpm
+        #name: 'https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm'
         #state: present
       #become: yes
 
